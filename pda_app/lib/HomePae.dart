@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:oktoast/oktoast.dart';
 import 'ScanningCodePae.dart';
 import './page/DeliverGoods.dart';
 
@@ -30,9 +32,25 @@ class HomePage extends StatelessWidget {
 //body: ,
 //),
 class HomeContext extends StatelessWidget {
+
+  DateTime lastPopTime;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return OKToast(
+      child:WillPopScope(
+      onWillPop:() async {
+        if(lastPopTime == null || DateTime.now().difference(lastPopTime) > Duration(seconds: 2)){
+          lastPopTime = DateTime.now();
+//          Toast.toast(context,msg: '再按一次退出');
+          showToast("再按一次退出");  // 可选属性看自己需求
+        }else{
+          lastPopTime = DateTime.now();
+          // 退出app
+          // ignore: missing_return
+          await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        }
+      },
+      child: Scaffold(
       appBar: AppBar(title: Text("PDA扫码系统")),
       body: GridView.count(
         crossAxisCount: 3,
@@ -77,9 +95,12 @@ class HomeContext extends StatelessWidget {
           ],
         ),
       ),
+    )
+    )
     );
   }
 }
+
 
 class MyItem extends StatelessWidget {
   String name;
