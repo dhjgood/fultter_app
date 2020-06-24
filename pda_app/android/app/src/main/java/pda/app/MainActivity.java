@@ -24,7 +24,7 @@ public class MainActivity extends FlutterActivity {
         super.onCreate(savedInstanceState);
         initScanner(); //调用
 //        GeneratedPluginRegistrant.registerWith(this);
-        methodChannel = new MethodChannel(getFlutterView(),"com.example.platform_channel/text");//1
+        methodChannel = new MethodChannel(getFlutterView(),"com.pad.getcode/text");//1
     }
 
     @Override

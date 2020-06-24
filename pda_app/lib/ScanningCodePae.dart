@@ -12,8 +12,7 @@ class ScanningCodePage extends StatefulWidget {
 }
 
 class MyAppState extends State<ScanningCodePage> {
-  static const platformChannel =
-  const MethodChannel('com.example.platform_channel/text');
+  static const platformChannel = const MethodChannel('com.pad.getcode/text');
   String textContent = '';
   @override
   void initState() {
